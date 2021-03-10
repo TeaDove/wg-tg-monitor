@@ -18,7 +18,7 @@ config = configparser.ConfigParser()
 config.read("data/config.ini")
 bot = Bot(token=config['credentials']['telegram-api'])
 dp = Dispatcher(bot)
-SUBSPACE_FOLDER = SCRIPT.parent / "subspace-wg" / "data"
+SUBSPACE_FOLDER = SCRIPT.parent / ".." / ".." /"subspace-wg" / "data"
 PEERS_DICT = {}
 OWNERS = config["credentials"]["owners_id"].split()
 
@@ -55,7 +55,7 @@ async def send_wg_stats():
     for line in lines:
         parts = line.split(':', 1)
         str_to_send += "    <b>" + parts[0].strip() + ": </b>" + parts[1].strip() + "\n"
-    message = await dp.bot.send_message(channel_id, str_to_send, parse_mode="html")
+    message = await dp.bot.send_message(channel_id, str_to_send, parse_mode="html", disable_notification=True)
     messages_id.append(message.message_id)
     for peer in peers[1:]:
         lines = peer.strip("\n").splitlines()
@@ -65,7 +65,7 @@ async def send_wg_stats():
             str_to_send += "    <b>" + parts[0].strip() + ": </b>" + parts[1].strip() + "\n"
         if lines[0] in PEERS_DICT:
             str_to_send += "    <b>name:</b><i> " + PEERS_DICT[lines[0]] + "</i>\n"
-        message = await dp.bot.send_message(channel_id, str_to_send, parse_mode="html")
+        message = await dp.bot.send_message(channel_id, str_to_send, parse_mode="html", disable_notification=True)
         messages_id.append(message.message_id)
     with open(SCRIPT.parent / "data" / "messages.json", 'w') as f:
         json.dump(messages_id, f)

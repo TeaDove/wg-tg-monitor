@@ -41,7 +41,7 @@ async def send(message: types.Message):
         for line in lines:
             parts = line.split(':', 1)
             str_to_send += "    <b>" + parts[0].strip() + ": </b>" + parts[1].strip() + "\n"
-        await message.reply(str_to_send, parse_mode="html")
+        await message.reply(str_to_send, parse_mode="html", disable_notification=True)
         for peer in peers[1:]:
             lines = peer.strip("\n").splitlines()
             str_to_send = "peer: " + lines[0] + "\n"
@@ -50,7 +50,7 @@ async def send(message: types.Message):
                 str_to_send += "    <b>" + parts[0].strip() + ": </b>" + parts[1].strip() + "\n"
             if lines[0] in PEERS_DICT:
                 str_to_send += "    <b>name:</b><i> " + PEERS_DICT[lines[0]] + "</i>\n"
-            await message.answer(str_to_send, parse_mode="html")
+            await message.answer(str_to_send, parse_mode="html", disable_notification=True)
 
 if __name__ == '__main__':
     get_peers_dict()
