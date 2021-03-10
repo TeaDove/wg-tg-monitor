@@ -1,6 +1,6 @@
 # configs
 src/data
-
+src/subspace-wg
 # supervisor logs
 err.log
 out.log

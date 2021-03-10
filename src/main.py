@@ -36,7 +36,6 @@ async def send(message: types.Message):
     if str(message.from_user.id) in OWNERS:
         wg_output = subprocess.run(["wg"], capture_output=True).stdout.decode()
         peers = wg_output.split("peer: ")
-        #logging.warn(peers)
         lines = peers[0].strip("\n").splitlines() 
         str_to_send = ''
         for line in lines:
