@@ -25,3 +25,6 @@ peer: ******
     name: GalaxyA50
 ```
 with nice markdown(bold and italic text)
+
+## Channels!
+Now, you can add bot to the channel and print data every 5 minutes with crontab
