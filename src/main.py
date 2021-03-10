@@ -19,6 +19,7 @@ bot = Bot(token=config['credentials']['telegram-api'])
 dp = Dispatcher(bot)
 SUBSPACE_FOLDER = SCRIPT.parent / ".." / ".." / "subspace-wg" / "data"
 PEERS_DICT = {}
+OWNERS = config["credentials"]["owners_id"].split()
 
 
 def get_peers_dict() -> dict:
@@ -32,7 +33,7 @@ def get_peers_dict() -> dict:
 
 @dp.message_handler(commands = "wg")
 async def send(message: types.Message):
-    if message.from_user.id == int(config["credentials"]["owner_id"]):
+    if str(message.from_user.id) in OWNERS:
         wg_output = subprocess.run(["wg"], capture_output=True).stdout.decode()
         peers = wg_output.split("peer: ")
         #logging.warn(peers)
